@@ -2,13 +2,22 @@
 # Purpose: Collect functionality needed to operate SAND-E into a single place
 # Includes: Motor driver, get ultrasonic range, get compass heading, get beacon heading
 #
+# Classes: Motor:
+#			 -drive_cw(speed): Drive motor clockwise at a given speed (0-100)
+#			 -drive_ccw(speed): Drive motor counter-clocwise at a given speed (0-100)
+#			 -delete: Disable motor
+#		   Ultrasonic:
+#			 -get_range: Returns distance to nearest sensed object
+# Methods: 
+#		-SANDE_init: import dependencies and set up GPIO pins
+#
 # Authors: Benjamin Elsaesser (benjamin.elsaesser@colorado.edu)
 ########################################################################################################
 
 def SANDE_init():
 	# Import dependencies
 	import RPi.GPIO as io
-	from time import sleep
+	import time
 
 	# Set up general GPIO stuff
 	io.setmode(GPIO.BOARD)
@@ -73,4 +82,39 @@ class Motor:
 	def delete(self):
 		io.output(self.enable, False)
 		self.pwm.stop()
+
+class Ultrasonic:
+
+	# Initialize ultrasonic sensor given echo and trig pin numbers
+	def __init__(self,echo,trig):
+		self.echo = echo
+		self.trig = trig
+		io.setup(self.echo,io.IN)
+		io.setop(self.trig,io.OUT)
+
+		io.output(self.trig, False)
+		print "Waiting for sensor to Settle"
+		time.sleep(2)
+
+	def get_range(self,offset):
+		# Send 10 microsecond pulse to trig pin
+		io.output(self.trig, True)
+		time.sleep(0.00001)
+		io.output(self.trig, False)
+
+		# Time the response
+		while io.input(self.echo)==0:
+			pulse_start = time.time()
+
+		while io.input(self.echo)==1:
+			pulse_end = time.time()
+
+		# Calculate distance
+		self.pulse_duration = pulse_end-pulse_start
+		self.distance = self.pulse_duration817150
+		self.distance = round(self.distance,2) + offset
+
+		# Return distance
+		return (distance)
+
 
