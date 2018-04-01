@@ -96,7 +96,7 @@ class Ultrasonic:
 		self.echo = echo
 		self.trig = trig
 		io.setup(self.echo,io.IN)
-		io.setop(self.trig,io.OUT)
+		io.setup(self.trig,io.OUT)
 
 		io.output(self.trig, False)
 		print("Waiting for sensor to Settle")
@@ -120,11 +120,11 @@ class Ultrasonic:
 
 		# Calculate distance
 		self.pulse_duration = pulse_end-pulse_start
-		self.distance = self.pulse_duration817150
+		self.distance = self.pulse_duration*17150
 		self.distance = round(self.distance,2) + offset
 
 		# Return distance
-		return (distance)
+		return (self.distance, self.pulse_duration)
 
 # Get compass heading
 def comp_heading():
