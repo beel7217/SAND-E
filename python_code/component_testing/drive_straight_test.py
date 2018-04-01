@@ -42,5 +42,7 @@ print "Final motor speeds for straight driving"
 print "Left Motor: ", speeds_left
 print "Right Motor: ", speeds_right
 
-
+# Disable motors
+right_motor.delete()
+left_motor.delete()
 		
