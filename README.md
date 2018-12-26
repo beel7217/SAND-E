@@ -5,7 +5,7 @@ If you have any questions feel free to shoot me an email at benjamin.elsaesser@c
 =============Included in repo=============
 -python_code/
 	-dev/: Development folder
-		-simple_avoid_obstacle.py: Simple algorithm for avoiding an obstacle withought an input heading
+		-simple_avoid_obstacle.py: Simple algorithm for avoiding an obstacle without an input heading
 	
 	-component_testing/: Code to use for component testing
 		-robot.py: Library file that contains nescessary classes and methods to operate SAND-E hardware:
